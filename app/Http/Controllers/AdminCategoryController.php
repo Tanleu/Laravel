@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Categories;
 use Illuminate\Http\Request;
 
 class AdminCategoryController extends Controller
@@ -13,7 +14,10 @@ class AdminCategoryController extends Controller
      */
     public function index()
     {
-        //
+        $categories = Categories::all();
+
+//        return  $categories;
+        return view('admin.category.index')->with('categories', $categories);
     }
 
     /**
@@ -23,7 +27,7 @@ class AdminCategoryController extends Controller
      */
     public function create()
     {
-        //
+       return view('admin.category.create');
     }
 
     /**
@@ -34,7 +38,9 @@ class AdminCategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Categories::create($request->all());
+
+        return redirect('/admin/category');
     }
 
     /**
@@ -54,9 +60,11 @@ class AdminCategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($category)
     {
-        //
+        $categoryObject = Categories::find($category);
+
+        return view('admin.category.update', compact('categoryObject'));
     }
 
     /**
@@ -66,9 +74,13 @@ class AdminCategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $category)
     {
-        //
+        $categoryObject = Categories::find($category);
+
+        $categoryObject->update($request->all());
+
+        return redirect('/admin/category');
     }
 
     /**
@@ -77,8 +89,11 @@ class AdminCategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($category)
     {
-        //
+        $categoryObject = Categories::find($category);
+        $categoryObject->delete();
+
+        return redirect('/admin/category');
     }
 }

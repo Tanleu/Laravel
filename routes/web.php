@@ -24,8 +24,16 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/index', function(){
+    return view('home');
+});
 
-    $user = User::whereId(1);
-    return $user->role();
+Route::get('/trangchu', function(){
+    return view('layouts.index');
+});
 
+Route::group(['middleware' => 'admin'], function(){
+    Route::resource('admin/role', 'AdminRoleController');
+    Route::resource('admin/user', 'AdminUserController');
+    Route::resource('admin/product', 'AdminProductController');
+    Route::resource('admin/category', 'AdminCategoryController');
 });

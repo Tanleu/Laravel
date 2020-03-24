@@ -15,6 +15,7 @@ class AddTokenColumnToRoleTable extends Migration
     {
         Schema::table('roles', function (Blueprint $table) {
             //
+            $table->string('_token');
         });
     }
 
@@ -26,7 +27,7 @@ class AddTokenColumnToRoleTable extends Migration
     public function down()
     {
         Schema::table('roles', function (Blueprint $table) {
-            //
+            $table->dropColumn('_token');
         });
     }
 }

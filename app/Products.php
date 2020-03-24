@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Schema;
 
 class Products extends Model
 {
@@ -15,4 +16,5 @@ class Products extends Model
     public function Category(){
         return $this->belongsTo('App\Categories');
     }
+
 }
